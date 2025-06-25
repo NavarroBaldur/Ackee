@@ -6,6 +6,7 @@ const identifier = require('../utils/identifier')
 const messages = require('../utils/messages')
 const domains = require('../database/domains')
 const records = require('../database/records')
+const { sendToSupabase } = require('../utils/proxy')
 
 const normalizeSiteLocation = (siteLocation) => {
 	if (siteLocation == null) {
@@ -69,6 +70,13 @@ module.exports = {
 
 			try {
 				entry = await records.add(data)
+					await sendToSupabase({
+						input,
+						userAgent,
+						ip,
+						domainId
+						})
+
 			} catch (error) {
 				if (error.name === 'ValidationError') {
 					throw new KnownError(messages(error.errors))
