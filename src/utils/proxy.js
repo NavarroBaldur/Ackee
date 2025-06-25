@@ -1,13 +1,13 @@
-import fetch from 'node-fetch';
-import UAParser from 'ua-parser-js';
+const fetch = require('node-fetch');
+const UAParser = require('ua-parser-js');
 
-export const sendToSupabase = async ({ req, domain, body }) => {
+const sendToSupabase = async ({ req, domain, body }) => {
   try {
     const parser = new UAParser(req.headers['user-agent']);
     const uaResult = parser.getResult();
 
     const geo = await fetch('https://ipapi.co/json')
-      .then(res => res.ok ? res.json() : {})
+      .then(res => (res.ok ? res.json() : {}))
       .catch(() => ({}));
 
     const data = {
@@ -40,3 +40,5 @@ export const sendToSupabase = async ({ req, domain, body }) => {
     console.error('Error enviando a Supabase:', error.message);
   }
 };
+
+module.exports = { sendToSupabase };
