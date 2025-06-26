@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "@graphql-tools/merge": "^8.3.14",
+    "@supabase/supabase-js": "^2.50.2",
     "ackee-tracker": "^5.1.0",
     "apollo-server-core": "^3.11.1",
     "apollo-server-lambda": "^3.11.1",
